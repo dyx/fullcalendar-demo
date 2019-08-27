@@ -8,9 +8,7 @@
 - yarn run serve
 
 #### UI展示
-![](https://files.gitee.com/group1/M00/08/88/PaAvDF0m5ZaAaLRfAICPcXegSqM876.gif?token=9c697edb9518dd37ee633e42616d72bb&ts=1562830231&attname=%E6%BC%94%E7%A4%BA1.gif&disposition=inline)
-
-![](https://files.gitee.com/group1/M00/08/88/PaAvDF0m5duAZ5xIAHBX0WZzq18756.gif?token=c26862bd7a78a2207857d88cc4342ca4&ts=1562830299&attname=%E6%BC%94%E7%A4%BA2.gif&disposition=inline)
+![](/doc/img/演示1.gif)
 
 ## 集成
 [Vue集成文档地址](https://fullcalendar.io/docs/vue)
