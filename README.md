@@ -8,7 +8,7 @@
 - yarn run serve
 
 #### UI展示
-![](/doc/img/演示1.gif)
+![](https://cdn.jsdelivr.net/gh/luhaidong/images@v1.0/fullcalendar-demo/%E6%BC%94%E7%A4%BA1.gif)
 
 ## 集成
 [Vue集成文档地址](https://fullcalendar.io/docs/vue)
