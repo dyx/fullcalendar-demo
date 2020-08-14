@@ -36,7 +36,7 @@
         name: 'ViewSchedule',
         components: {},
         props: {
-            visible: false,
+            visible: Boolean,
             id: Number
         },
         data() {

@@ -21,32 +21,7 @@
             </Form>
           </Col>
         </Row>
-        <FullCalendar ref="fullCalendar"
-                      locale="zh"
-                      defaultView="dayGridMonth"
-                      minTime="00:00:00"
-                      maxTime="23:00:00"
-                      slotDuration="00:15:00"
-                      defaultTimedEventDuration="00:30"
-                      eventLimitText="查看所有"
-                      :fixedWeekCount="false"
-                      :showNonCurrentDates="false"
-                      :eventLimit="true"
-                      :allDaySlot="false"
-                      :weekends="true"
-                      :slotLabelFormat="slotLabelFormat"
-                      :eventTimeFormat="eventTimeFormat"
-                      :firstDay="1"
-                      :views="views"
-                      :header="header"
-                      :buttonText="buttonText"
-                      :plugins="plugins"
-                      :events="events"
-                      :validRange="validRange"
-                      :datesRender="datesRender"
-                      @eventClick="handleEventClick"
-                      @dateClick="handleDateClick"/>
-
+        <FullCalendar ref="fullCalendar" :options="calendarOptions"></FullCalendar>
         <save-schedule :visible="saveVisible"
               :userId="params.userId"
               :date="selectDate"
@@ -78,45 +53,57 @@
                 DISABLED_COLOR: '#c5c8ce',
                 USED_COLOR: '#19be6b',
                 NORMAL_COLOR: '#2db7f5',
-                views: {
-                    list: {
-                        noEventsMessage: '暂无日程'
-                    }
-                },
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay listWeek'
-                },
-                buttonText: {
+                calendarOptions: {
+                  plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
+                  initialView: 'dayGridMonth',
+                  locale: 'zh',
+                  firstDay: 1,
+                  // 时间轴间距
+                  slotMinTime: '00:00',
+                  slotMaxTime: '23:00',
+                  slotDuration: '00:15:00',
+                  defaultTimedEventDuration: '00:30',
+                  // 月视图，是否为指定周数高度，true 6周高度
+                  fixedWeekCount: false,
+                  // 月视图，是否显示非本月日期
+                  showNonCurrentDates: false,
+                  // 是否显示全天插槽
+                  allDaySlot: false,
+                  weekends: true,
+                  dayMaxEvents: true,
+                  slotLabelFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: false
+                  },
+                  eventTimeFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: false
+                  },
+                  buttonText: {
                     today: '今天',
                     month: '月',
                     week: '周',
                     day: '日',
                     list: '周列表'
-                },
-                slotLabelFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: false
-                },
-                eventTimeFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: false
+                  },
+                  headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay listWeek'
+                  },
+                  validRange: this.validRange,
+                  events: [],
+                  datesSet: this.datesSet,
+                  eventClick: this.handleEventClick,
+                  dateClick: this.handleDateClick,
                 },
                 validRange: {
                     start: '2019-01-01',
                     end: this.$moment().add(6, 'months').format('YYYY-MM-DD')
                 },
-                plugins: [
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin,
-                    listPlugin
-                ],
                 users: [],
-                events: [],
                 params: {},
                 viewVisible: false,
                 selectId: 0,
@@ -144,7 +131,7 @@
                 this.search();
             },
             search () {
-                this.events = [];
+                this.calendarOptions.events = [];
                 mockData.schedules.filter(item => {
                     let isUser = true;
                     if (this.params.userId) {
@@ -155,7 +142,7 @@
                     return isUser && isAfter && isBefore;
                 }).forEach(item => {
                     let color = this.getColor(item);
-                    this.events.push({
+                    this.calendarOptions.events.push({
                         backgroundColor: color,
                         borderColor: color,
                         title: mockData.getUserName(item.userId),
@@ -164,7 +151,7 @@
                     });
                 });
             },
-            datesRender (info) {
+            datesSet (info) {
                 let date = info.view.activeStart;
                 // 查询月份数据
                 this.params.startDate = this.$moment(date).startOf('month').format('YYYY-MM-DD HH:mm:ss');
@@ -193,10 +180,6 @@
 </style>
 
 <style scoped>
-  @import '~@fullcalendar/core/main.css';
-  @import '~@fullcalendar/daygrid/main.css';
-  @import '~@fullcalendar/timegrid/main.css';
-  @import '~@fullcalendar/list/main.css';
   .panel {
     padding-top: 64px;
   }
