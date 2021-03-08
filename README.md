@@ -3,6 +3,10 @@
 ## 简介
 - 集成日程控件 @fullcalendar/vue 5.3 [官网](https://fullcalendar.io/)
 
+#### 环境依赖
+- node 12.14+
+- yarn 1.21+
+
 #### Demo运行
 - yarn install
 - yarn run serve

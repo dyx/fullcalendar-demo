@@ -26,9 +26,15 @@
         name: 'SaveSchedule',
         components: {},
         props: {
-            visible: false,
-            date: '',
-            userId: 0
+            visible: {
+              type: Boolean
+            },
+            date: {
+              type: String
+            },
+            userId: {
+              type: Number
+            }
         },
         data () {
             return {
