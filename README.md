@@ -12,7 +12,7 @@
 - yarn run serve
 
 #### UI展示
-![](https://cdn.jsdelivr.net/gh/luhaidong/images@v1.0/fullcalendar-demo/%E6%BC%94%E7%A4%BA1.gif)
+![](./doc/img/demo.gif)
 
 ## 集成
 [Vue集成文档地址](https://fullcalendar.io/docs/vue)
@@ -79,6 +79,8 @@
 - eventClick:handleEventClick 点击日程事件，显示详情
 - dateClick:handleDateClick 点击日期，显示新增
 
+- eventClassNames 指定事件样式
+- dayCellClassNames 指定日期单元格样式
 
 ### 4.2
 #### 引用控件 schedule.vue
